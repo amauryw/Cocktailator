@@ -4,17 +4,13 @@ import Layout from "../constants/Layout";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 
-export const FloatingButton = ({ onPress, isLoading, hasErrored }) => {
+export const FloatingButton = ({ onPress, isLoading }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       {isLoading ? (
         <ActivityIndicator />
       ) : (
-        <Ionicons
-          name={hasErrored ? "md-warning" : "md-wine"}
-          size={50}
-          color={Colors.secondaryColor}
-        />
+        <Ionicons name={"md-wine"} size={50} color={Colors.secondaryColor} />
       )}
     </TouchableOpacity>
   );

@@ -8,18 +8,17 @@ export const useFavoriteStore = () => {
   const myFavoriteCocktails = state.myFavoriteCocktails;
 
   const isLoading = state.isLoading;
-  const hasErrored = state.hasErrored;
 
   const loadCocktails = async name => {
     try {
-      setState({ ...state, isLoading: true, hasErrored: false });
+      setState({ ...state, isLoading: true });
       const apiFetchedCockails = await fetchCocktailsByIngredientName(name);
       const cocktails = adaptApiCocktailToCocktails(apiFetchedCockails);
       setState({ ...state, myFavoriteCocktails: cocktails, isLoading: false });
     } catch (error) {
-      setState({ ...state, hasErrored: true, isLoading: false });
+      setState({ ...state, isLoading: false });
     }
   };
 
-  return { myFavoriteCocktails, loadCocktails, isLoading, hasErrored };
+  return { myFavoriteCocktails, loadCocktails, isLoading };
 };

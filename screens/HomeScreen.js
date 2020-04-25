@@ -9,7 +9,6 @@ const LOGO_HEIGHT = 80;
 export default function HomeScreen() {
   const {
     isLoading,
-    hasErrored,
     myFavoriteCocktails,
     loadCocktails
   } = useFavoriteStore();
@@ -36,7 +35,7 @@ export default function HomeScreen() {
         <View style={styles.scrollViewContainer}>
           {myFavoriteCocktails.map((cocktail, index) => (
             <CoctailCard
-              id={cocktail.id}
+              key={cocktail.id}
               label={cocktail.name}
               uri={cocktail.imagePath}
               inversed={index % 2 === 0}
@@ -47,7 +46,6 @@ export default function HomeScreen() {
       <FloatingButton
         onPress={() => loadCocktails(inputValue)}
         isLoading={isLoading}
-        hasErrored={hasErrored}
       />
     </View>
   );

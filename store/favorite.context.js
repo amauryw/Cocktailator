@@ -4,8 +4,7 @@ export const FavoriteContext = createContext([{}, () => {}]);
 
 const initialState = {
   myFavoriteCocktails: [],
-  isLoading: false,
-  hasErrored: false,
+  isLoading: false
 };
 
 export const FavoriteProvider = props => {
