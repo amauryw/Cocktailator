@@ -1,12 +1,12 @@
 import React from "react";
-import { StyleSheet, View, ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView, Button } from "react-native";
 import { CoctailCard } from "../components/CocktailCard";
 import { useFavoriteStore } from "../store/favorite.hooks";
 
 const LOGO_HEIGHT = 80;
 
 export default function HomeScreen() {
-  const { myFavoriteCocktails } = useFavoriteStore();
+  const { myFavoriteCocktails, loadCocktails } = useFavoriteStore();
   const renderHeader = () => {
     return (
       <>
@@ -19,6 +19,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.mainContainer}>
       {renderHeader()}
+      <Button onPress={loadCocktails} title="wefihnefih" />
       <ScrollView style={styles.scrollView}>
         <View style={styles.scrollViewContainer}>
           {myFavoriteCocktails.map((cocktail, index) => (
