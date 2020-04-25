@@ -16,7 +16,7 @@ export const useFavoriteStore = () => {
       const cocktails = adaptApiCocktailToCocktails(apiFetchedCockails);
       setState({ ...state, myFavoriteCocktails: cocktails, isLoading: false });
     } catch (error) {
-      setState({ ...state, isLoading: false });
+      setState({ ...state, isLoading: false, myFavoriteCocktails: [] });
     }
   };
 
