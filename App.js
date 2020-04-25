@@ -8,6 +8,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./screens/HomeScreen";
 import useLinking from "./navigation/useLinking";
 import Colors from "./constants/Colors";
+import { FavoriteProvider } from "./store/favorite.context";
 
 const Stack = createStackNavigator();
 
@@ -47,17 +48,19 @@ export default function App(props) {
     return null;
   } else {
     return (
-      <View style={styles.container}>
-        <StatusBar animated backgroundColor={Colors.tintColor} />
-        <NavigationContainer
-          ref={containerRef}
-          initialState={initialNavigationState}
-        >
-          <Stack.Navigator headerMode="none">
-            <Stack.Screen name="Root" component={HomeScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </View>
+      <FavoriteProvider>
+        <View style={styles.container}>
+          <StatusBar animated backgroundColor={Colors.tintColor} />
+          <NavigationContainer
+            ref={containerRef}
+            initialState={initialNavigationState}
+          >
+            <Stack.Navigator headerMode="none">
+              <Stack.Screen name="Root" component={HomeScreen} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </View>
+      </FavoriteProvider>
     );
   }
 }

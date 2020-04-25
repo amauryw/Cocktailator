@@ -1,0 +1,8 @@
+import axios from "axios";
+
+export const fetchCocktailsByIngredientName = async name => {
+  const response = await axios.get(
+    `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${name}`
+  );
+  return response.data.drinks;
+};

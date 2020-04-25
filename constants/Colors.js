@@ -1,7 +1,11 @@
 const tintColor = '#2f95dc';
-
+const secondaryColor ='#fefefe'
 export default {
   tintColor,
+  oddLine:  '#eee',
+  evenLine: secondaryColor,
+  primaryColor: '#101010',
+  secondaryColor,
   tabIconDefault: '#ccc',
   tabIconSelected: tintColor,
   tabBar: '#fefefe',
@@ -11,4 +15,5 @@ export default {
   warningText: '#666804',
   noticeBackground: tintColor,
   noticeText: '#fff',
+
 };
