@@ -1,10 +1,12 @@
-import * as React from "react";
+import React from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
 import { CoctailCard } from "../components/CocktailCard";
+import { useFavoriteStore } from "../store/favorite.hooks";
 
 const LOGO_HEIGHT = 80;
 
 export default function HomeScreen() {
+  const { myFavoriteCocktails } = useFavoriteStore();
   const renderHeader = () => {
     return (
       <>
@@ -19,19 +21,13 @@ export default function HomeScreen() {
       {renderHeader()}
       <ScrollView style={styles.scrollView}>
         <View style={styles.scrollViewContainer}>
-          <CoctailCard
-            label="coucou"
-            uri="https://www.thecocktaildb.com/images/media/drink/g1vnbe1493067747.jpg"
-          />
-          <CoctailCard
-            label="coucou"
-            uri="https://www.thecocktaildb.com/images/media/drink/g1vnbe1493067747.jpg"
-            inversed
-          />
-          <CoctailCard
-            label="coucou"
-            uri="https://www.thecocktaildb.com/images/media/drink/g1vnbe1493067747.jpg"
-          />
+          {myFavoriteCocktails.map((cocktail, index) => (
+            <CoctailCard
+              label={cocktail.name}
+              uri={cocktail.imagePath}
+              inversed={index % 2 === 0}
+            />
+          ))}
         </View>
       </ScrollView>
     </View>
