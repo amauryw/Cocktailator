@@ -2,7 +2,7 @@ import * as React from "react";
 import { View, StyleSheet, Text, Image } from "react-native";
 import Layout from "../constants/Layout";
 
-export const CoctailCard = ({ label, uri, inversed }) => {
+export const CoctailCard = ({ label, uri, inversed, backgroundColor }) => {
   const renderImage = () => {
     return (
       <View>
@@ -41,7 +41,7 @@ export const CoctailCard = ({ label, uri, inversed }) => {
     );
   };
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, backgroundColor: backgroundColor }}>
       {inversed ? renderImageLeft() : renderImageRight()}
     </View>
   );

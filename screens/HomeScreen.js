@@ -3,15 +3,12 @@ import { StyleSheet, View, ScrollView, TextInput, Button } from "react-native";
 import { CoctailCard } from "../components/CocktailCard";
 import { FloatingButton } from "../components/FloatingButton";
 import { useFavoriteStore } from "../store/favorite.hooks";
+import Colors from "../constants/Colors";
 
 const LOGO_HEIGHT = 80;
 
 export default function HomeScreen() {
-  const {
-    isLoading,
-    myFavoriteCocktails,
-    loadCocktails
-  } = useFavoriteStore();
+  const { isLoading, myFavoriteCocktails, loadCocktails } = useFavoriteStore();
 
   const [inputValue, setInputValue] = useState("");
   const renderHeader = () => {
@@ -33,14 +30,20 @@ export default function HomeScreen() {
       ></TextInput>
       <ScrollView style={styles.scrollView}>
         <View style={styles.scrollViewContainer}>
-          {myFavoriteCocktails.map((cocktail, index) => (
-            <CoctailCard
-              key={cocktail.id}
-              label={cocktail.name}
-              uri={cocktail.imagePath}
-              inversed={index % 2 === 0}
-            />
-          ))}
+          {myFavoriteCocktails.map((cocktail, index) => {
+            const evenLine = index % 2 === 0;
+            return (
+              <CoctailCard
+                key={cocktail.id}
+                label={cocktail.name}
+                uri={cocktail.imagePath}
+                inversed={evenLine}
+                backgroundColor={
+                  evenLine ? Colors.oddLine : Colors.evenLine
+                }
+              />
+            );
+          })}
         </View>
       </ScrollView>
       <FloatingButton
@@ -72,7 +75,6 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     flex: 1,
-    flexDirection: "column",
-    backgroundColor: "yellow"
+    flexDirection: "column"
   }
 });
