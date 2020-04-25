@@ -7,7 +7,13 @@ import { useFavoriteStore } from "../store/favorite.hooks";
 const LOGO_HEIGHT = 80;
 
 export default function HomeScreen() {
-  const { myFavoriteCocktails, loadCocktails } = useFavoriteStore();
+  const {
+    isLoading,
+    hasErrored,
+    myFavoriteCocktails,
+    loadCocktails
+  } = useFavoriteStore();
+
   const [inputValue, setInputValue] = useState("");
   const renderHeader = () => {
     return (
@@ -19,15 +25,18 @@ export default function HomeScreen() {
     );
   };
 
-  
   return (
     <View style={styles.mainContainer}>
       {renderHeader()}
-      <TextInput value={inputValue} onChangeText={text => setInputValue(text)}></TextInput>
+      <TextInput
+        value={inputValue}
+        onChangeText={text => setInputValue(text)}
+      ></TextInput>
       <ScrollView style={styles.scrollView}>
         <View style={styles.scrollViewContainer}>
           {myFavoriteCocktails.map((cocktail, index) => (
             <CoctailCard
+              id={cocktail.id}
               label={cocktail.name}
               uri={cocktail.imagePath}
               inversed={index % 2 === 0}
@@ -35,7 +44,11 @@ export default function HomeScreen() {
           ))}
         </View>
       </ScrollView>
-      <FloatingButton onPress={() => loadCocktails(inputValue)} />
+      <FloatingButton
+        onPress={() => loadCocktails(inputValue)}
+        isLoading={isLoading}
+        hasErrored={hasErrored}
+      />
     </View>
   );
 }

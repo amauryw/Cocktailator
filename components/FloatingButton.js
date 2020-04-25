@@ -1,13 +1,21 @@
 import * as React from "react";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
 import Layout from "../constants/Layout";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 
-export const FloatingButton = ({ onPress }) => {
+export const FloatingButton = ({ onPress, isLoading, hasErrored }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
-      <Ionicons name="md-wine" size={50} color={Colors.secondaryColor} />
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <Ionicons
+          name={hasErrored ? "md-warning" : "md-wine"}
+          size={50}
+          color={Colors.secondaryColor}
+        />
+      )}
     </TouchableOpacity>
   );
 };

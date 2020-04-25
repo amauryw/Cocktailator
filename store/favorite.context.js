@@ -3,7 +3,9 @@ import React, { createContext, useState } from "react";
 export const FavoriteContext = createContext([{}, () => {}]);
 
 const initialState = {
-  myFavoriteCocktails: []
+  myFavoriteCocktails: [],
+  isLoading: false,
+  hasErrored: false,
 };
 
 export const FavoriteProvider = props => {
