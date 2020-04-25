@@ -1,12 +1,14 @@
-import React from "react";
-import { StyleSheet, View, ScrollView, Button } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, ScrollView, TextInput, Button } from "react-native";
 import { CoctailCard } from "../components/CocktailCard";
+import { FloatingButton } from "../components/FloatingButton";
 import { useFavoriteStore } from "../store/favorite.hooks";
 
 const LOGO_HEIGHT = 80;
 
 export default function HomeScreen() {
   const { myFavoriteCocktails, loadCocktails } = useFavoriteStore();
+  const [inputValue, setInputValue] = useState("");
   const renderHeader = () => {
     return (
       <>
@@ -16,10 +18,12 @@ export default function HomeScreen() {
       </>
     );
   };
+
+  
   return (
     <View style={styles.mainContainer}>
       {renderHeader()}
-      <Button onPress={loadCocktails} title="wefihnefih" />
+      <TextInput value={inputValue} onChangeText={text => setInputValue(text)}></TextInput>
       <ScrollView style={styles.scrollView}>
         <View style={styles.scrollViewContainer}>
           {myFavoriteCocktails.map((cocktail, index) => (
@@ -31,6 +35,7 @@ export default function HomeScreen() {
           ))}
         </View>
       </ScrollView>
+      <FloatingButton onPress={() => loadCocktails(inputValue)} />
     </View>
   );
 }
