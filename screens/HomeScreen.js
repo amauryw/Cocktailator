@@ -4,12 +4,13 @@ import { CoctailCard } from "../components/CocktailCard";
 import { FloatingButton } from "../components/FloatingButton";
 import { useFavoriteStore } from "../store/favorite.hooks";
 import Colors from "../constants/Colors";
+import { Makiko } from 'react-native-textinput-effects';
+import { Kaede } from 'react-native-textinput-effects';
 
 const LOGO_HEIGHT = 80;
 
 export default function HomeScreen() {
   const { isLoading, myFavoriteCocktails, loadCocktails } = useFavoriteStore();
-
   const [inputValue, setInputValue] = useState("");
   const renderHeader = () => {
     return (
@@ -24,10 +25,13 @@ export default function HomeScreen() {
   return (
     <View style={styles.mainContainer}>
       {renderHeader()}
-      <TextInput
+      <Kaede
+        label={'Ingrédient'}
+        inputPadding={16}
+        //style={styles.textContainer}
         value={inputValue}
         onChangeText={text => setInputValue(text)}
-      ></TextInput>
+      />
       <ScrollView style={styles.scrollView}>
         <View style={styles.scrollViewContainer}>
           {myFavoriteCocktails.map((cocktail, index) => {
@@ -50,7 +54,7 @@ export default function HomeScreen() {
         onPress={() => loadCocktails(inputValue)}
         isLoading={isLoading}
       />
-    </View>
+    </View >
   );
 }
 
@@ -76,5 +80,14 @@ const styles = StyleSheet.create({
   scrollViewContainer: {
     flex: 1,
     flexDirection: "column"
+  },
+  textContainer: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 20,
+    backgroundColor: 'grey',
+    paddingLeft: 20,
+
   }
 });
