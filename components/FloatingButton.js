@@ -4,28 +4,28 @@ import Layout from "../constants/Layout";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 
-export const FloatingButton = ({ onPress, isLoading }) => {
+export const FloatingButton = ({ onPress, isLoading, verticalOffset, iconName }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity onPress={onPress} style={styles(verticalOffset).container}>
       {isLoading ? (
         <ActivityIndicator />
       ) : (
-        <Ionicons name={"md-wine"} size={50} color={Colors.secondaryColor} />
-      )}
+          <Ionicons name={iconName} size={BUTTON_HEIGHT-10} color={Colors.secondaryColor} />
+        )}
     </TouchableOpacity>
   );
 };
-const BUTTON_HEIGHT = 80;
-const styles = StyleSheet.create({
+const BUTTON_HEIGHT = 50;
+const styles = (verticalOffset) => StyleSheet.create({
   container: {
     position: "absolute",
-    bottom: 0,
+    bottom: 0 + verticalOffset*BUTTON_HEIGHT,
     right: 0,
     borderRadius: BUTTON_HEIGHT / 2,
     margin: Layout.margin.medium,
     backgroundColor: Colors.primaryColor,
     height: BUTTON_HEIGHT,
-    width: 80,
+    width: BUTTON_HEIGHT,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,

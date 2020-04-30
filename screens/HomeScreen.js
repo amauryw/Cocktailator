@@ -9,7 +9,7 @@ import { Kaede } from 'react-native-textinput-effects';
 
 const LOGO_HEIGHT = 80;
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   const { isLoading, myFavoriteCocktails, loadCocktails } = useFavoriteStore();
   const [inputValue, setInputValue] = useState("");
   const renderHeader = () => {
@@ -28,7 +28,7 @@ export default function HomeScreen() {
       <Kaede
         label={'Ingrédient'}
         inputPadding={16}
-        //style={styles.textContainer}
+        inputStyle={styles.textContainer}
         value={inputValue}
         onChangeText={text => setInputValue(text)}
       />
@@ -53,6 +53,13 @@ export default function HomeScreen() {
       <FloatingButton
         onPress={() => loadCocktails(inputValue)}
         isLoading={isLoading}
+        verticalOffset={0}
+        iconName="md-wine"
+      />
+      <FloatingButton
+        onPress={() => navigation.navigate('Test')}
+        verticalOffset={1}
+        iconName="md-add-circle-outline"
       />
     </View >
   );
@@ -82,12 +89,7 @@ const styles = StyleSheet.create({
     flexDirection: "column"
   },
   textContainer: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 20,
-    backgroundColor: 'grey',
-    paddingLeft: 20,
-
+    backgroundColor: "gray",
+    color: "white"                 //Text color
   }
 });
