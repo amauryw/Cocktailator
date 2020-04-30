@@ -1,43 +1,56 @@
 import * as React from "react";
 import { TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
-import Layout from "../constants/Layout";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 
-export const FloatingButton = ({ onPress, isLoading }) => {
+const MARGIN_OFFSET = 10;
+const DISTANCE_FROM_SIDE_SCREEN = 12;
+
+export const FloatingButton = ({
+  onPress,
+  isLoading,
+  verticalOffset,
+  iconName
+}) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={styles(verticalOffset).container}
+    >
       {isLoading ? (
         <ActivityIndicator />
       ) : (
-        <Ionicons name={"md-wine"} size={50} color={Colors.secondaryColor} />
+        <Ionicons
+          name={iconName}
+          size={BUTTON_HEIGHT - 10}
+          color={Colors.secondaryColor}
+        />
       )}
     </TouchableOpacity>
   );
 };
-const BUTTON_HEIGHT = 80;
-const styles = StyleSheet.create({
-  container: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    borderRadius: BUTTON_HEIGHT / 2,
-    margin: Layout.margin.medium,
-    backgroundColor: Colors.primaryColor,
-    height: BUTTON_HEIGHT,
-    width: 80,
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 1,
-    borderColor: Colors.primaryColor,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 4
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.65,
-
-    elevation: 8
-  }
-});
+const BUTTON_HEIGHT = 50;
+const styles = verticalOffset =>
+  StyleSheet.create({
+    container: {
+      position: "absolute",
+      bottom:
+        DISTANCE_FROM_SIDE_SCREEN +
+        verticalOffset * (BUTTON_HEIGHT + MARGIN_OFFSET),
+      right: DISTANCE_FROM_SIDE_SCREEN,
+      borderRadius: BUTTON_HEIGHT / 2,
+      backgroundColor: Colors.tintColor,
+      height: BUTTON_HEIGHT,
+      width: BUTTON_HEIGHT,
+      alignItems: "center",
+      justifyContent: "center",
+      shadowColor: Colors.tintColor,
+      shadowOffset: {
+        width: 0,
+        height: 4
+      },
+      shadowOpacity: 0.3,
+      shadowRadius: 4.65,
+      elevation: 8
+    }
+  });

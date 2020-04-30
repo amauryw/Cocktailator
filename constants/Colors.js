@@ -1,7 +1,11 @@
-const tintColor = '#2f95dc';
+const tintColor = '#463268';
+const tintColorLight = '#A092B1';
+const tintColorLighter = '#CFC7D8';
 const secondaryColor ='#fefefe'
 export default {
   tintColor,
+  tintColorLight,
+  tintColorLighter,
   oddLine:  '#eee',
   evenLine: secondaryColor,
   primaryColor: '#101010',

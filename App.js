@@ -9,6 +9,7 @@ import HomeScreen from "./screens/HomeScreen";
 import useLinking from "./navigation/useLinking";
 import Colors from "./constants/Colors";
 import { FavoriteProvider } from "./store/favorite.context";
+import LinksScreen from "./screens/LinksScreen";
 
 const Stack = createStackNavigator();
 
@@ -57,6 +58,7 @@ export default function App(props) {
           >
             <Stack.Navigator headerMode="none">
               <Stack.Screen name="Root" component={HomeScreen} />
+              <Stack.Screen name="Test" component={LinksScreen} />
             </Stack.Navigator>
           </NavigationContainer>
         </View>
