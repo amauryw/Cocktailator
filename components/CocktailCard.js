@@ -1,8 +1,8 @@
 import * as React from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import Layout from "../constants/Layout";
 
-export const CoctailCard = ({ label, uri, inversed, backgroundColor }) => {
+export const CoctailCard = ({ label, uri, inversed, backgroundColor, onPress }) => {
   const renderImage = () => {
     return (
       <View>
@@ -41,9 +41,13 @@ export const CoctailCard = ({ label, uri, inversed, backgroundColor }) => {
     );
   };
   return (
-    <View style={{ ...styles.container, backgroundColor: backgroundColor }}>
-      {inversed ? renderImageLeft() : renderImageRight()}
-    </View>
+    <TouchableOpacity
+      onPress={onPress}
+    >
+      <View style={{ ...styles.container, backgroundColor: backgroundColor }}>
+        {inversed ? renderImageLeft() : renderImageRight()}
+      </View>
+    </TouchableOpacity>
   );
 };
 

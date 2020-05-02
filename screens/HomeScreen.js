@@ -52,6 +52,7 @@ export default function HomeScreen({ navigation }) {
                 uri={cocktail.imagePath}
                 inversed={evenLine}
                 backgroundColor={evenLine ? Colors.oddLine : Colors.evenLine}
+                onPress={() => navigation.navigate("Recipe", { id: cocktail.id })}
               />
             );
           })}

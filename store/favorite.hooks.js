@@ -13,6 +13,7 @@ export const useFavoriteStore = () => {
     try {
       setState({ ...state, isLoading: true });
       const apiFetchedCockails = await fetchCocktailsByIngredientName(name);
+      console.log("apiFetch", apiFetchedCockails);
       const cocktails = adaptApiCocktailToCocktails(apiFetchedCockails);
       setState({ ...state, myFavoriteCocktails: cocktails, isLoading: false });
     } catch (error) {
