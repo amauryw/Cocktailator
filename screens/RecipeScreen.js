@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect, useRef } from "react";
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { fetchCocktailByID } from "../api/cocktails.api";
-import { onSessionWasInterrupted } from "expo/build/AR";
+import { CocktailDescriptionHeader } from "../components/CocktailDescription";
+import { CocktailDescription } from "../components/CocktailDescription";
+import { BackButton } from "../components/BackButton";
+import Colors from "../constants/Colors";
+import LottieView from "lottie-react-native";
 
 export default function RecipeScreen({ route, navigation }) {
     const [currentCocktail, setCurrentCocktail] = useState({
-        cocktail: {
-            name: null,
-            instructions: null,
-            ingredients: [],
-        }
+        name: null,
+        instructions: null,
+        ingredients: [{ ingredient: null, measure: null }],
+        uri: null,
     });
     const [isLoading, setIsLoading] = useState(false);
     const currentCocktailId = route.params.id;
@@ -19,33 +22,85 @@ export default function RecipeScreen({ route, navigation }) {
             try {
                 setIsLoading(true);
                 const data = await getData(currentCocktailId);
-                setIsLoading(false);
                 setCurrentCocktail(data);
-                console.log(data.ingredients);
-                console.log(currentCocktail.ingredients);
+                setIsLoading(false);
             } catch (err) {
                 setIsLoading(false);
             }
         }
         fetchData();
     }, []);
+    const animation = useRef(null);
+    useEffect(() => {
+        animation.current.play();
+    }, []);
+    const renderHeader = () => {
+        return (
+            <>
+                <View style={styles.logoContainer}>
+                    <LottieView
+                        ref={animation}
+                        style={styles.logoPlace}
+                        source={require("../assets/cocktailAnimation.json")}
+                    />
+                </View>
+            </>
+        );
+    };
+    const renderImage = () => {
+        return (
+            <View>
+                <Image
+                    style={styles.image}
+                    source={{
+                        uri: currentCocktail.uri
+                    }}
+                ></Image>
+            </View>
+        );
+    };
     return (
-        <ScrollView>
-            <Text>
-                {currentCocktailId}
-            </Text>
-            <Text>
-                {currentCocktail.name}
-                {isLoading ? "loading" : ""}
-            </Text>
-            <Text>
-                {currentCocktail.instructions}
-            </Text>
-            <Text>
-                {currentCocktail.ingredients[0].ingredient}
-                {currentCocktail.ingredients[0].measure}
-            </Text>
-        </ScrollView>
+        <View style={styles.container}>
+            <View style={styles.headerContainer}>
+                <View style={styles.namePlace}>
+                    <Text style={styles.nameText}>
+                        {currentCocktail.name}
+                    </Text>
+                </View>
+                <View style={styles.backButtonPlace}>
+                    <BackButton
+                        onPress={() => navigation.navigate("Root")}
+                        iconName="md-close-circle-outline"
+                    />
+                </View>
+            </View>
+            <ScrollView>
+                {isLoading ? <Text></Text> :
+                    <><View style={styles.imageContainer}>
+                        {renderImage()}
+                    </View>
+                        <View>
+                            <CocktailDescriptionHeader/>
+                            {currentCocktail.ingredients.map((cocktail) => {
+                                return (
+                                    <CocktailDescription
+                                        ingredient={cocktail.ingredient}
+                                        measure={cocktail.measure} />
+                                );
+                            })}</View>
+                        <View style={styles.instructionContainer}>
+                            <Text style={styles.textInstructionsTitle}>
+                                Instructions:
+                                {"\n"}
+                            </Text>
+                            <Text style={styles.textInstructions}>
+                                {currentCocktail.instructions}
+                            </Text>
+                        </View>
+                    </>}
+            </ScrollView>
+            {renderHeader()}
+        </View>
     );
 }
 
@@ -65,6 +120,7 @@ const getData = async id => {
             name: apiFetchedCocktail[0].strDrink,
             instructions: apiFetchedCocktail[0].strInstructions,
             ingredients,
+            uri: apiFetchedCocktail[0].strDrinkThumb,
         }
     } catch (error) {
         console.log("error API call by ID", error);
@@ -72,7 +128,67 @@ const getData = async id => {
     }
 };
 
-
-
-const styles = StyleSheet.create({})
+const LOGO_HEIGHT = 80;
+const IMAGE_HEIGHT = 150;
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: Colors.tintColor,
+        flex: 1,
+    },
+    logoPlace: {
+        flexDirection: "row",
+        width: LOGO_HEIGHT,
+        height: LOGO_HEIGHT,
+    },
+    logoContainer: {
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    headerContainer: {
+        height: 80,
+        paddingTop: 10,
+        justifyContent: "flex-end",
+        flexDirection: "row",
+    },
+    backButtonPlace: {
+        right: 10,
+        top: 10,
+        height: 40,
+        width: 40,
+        justifyContent: "center",
+    },
+    imageContainer: {
+        flexDirection: "row",
+        padding: 20,
+    },
+    image: {
+        height: IMAGE_HEIGHT,
+        width: IMAGE_HEIGHT,
+        aspectRatio: 1,
+        borderRadius: 5,
+    },
+    namePlace: {
+        paddingLeft: 20,
+        flex: 1,
+    },
+    nameText: {
+        textAlignVertical: "center",
+        fontWeight: "bold",
+        fontSize: 30,
+        color: 'white',
+    },
+    instructionContainer: {
+        padding: 20,
+        flex: 1,
+    },
+    textInstructionsTitle: {
+        fontSize: 15,
+        textDecorationLine: 'underline',
+        color: 'white',
+    },
+    textInstructions: {
+        fontSize: 15,
+        color: 'white',
+    },
+})
 

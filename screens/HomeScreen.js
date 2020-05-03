@@ -59,7 +59,7 @@ export default function HomeScreen({ navigation }) {
         </View>
       </ScrollView>
       <FloatingButton
-        onPress={() => navigation.navigate("Test")}
+        //onPress={() => navigation.navigate("Test")}
         verticalOffset={1}
         iconName="md-add-circle-outline"
       />
@@ -93,7 +93,8 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     flex: 1,
-    flexDirection: "column"
+    flexDirection: "column",
+    
   },
   textContainer: {
     backgroundColor: Colors.tintColorLighter,
