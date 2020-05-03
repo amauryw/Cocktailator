@@ -1,9 +1,14 @@
 export const adaptApiCocktailToCocktails = apiCocktails => {
-  return apiCocktails.map(apiCocktail => ({
-    id: apiCocktail.idDrink,
-    name: apiCocktail.strDrink,
-    imagePath:
-      apiCocktail.strDrinkThumb ||
-      "https://www.thecocktaildb.com/images/media/drink/g1vnbe1493067747.jpg"
-  }));
+  return apiCocktails.map(apiCocktail => formatCocktail(apiCocktail));
 };
+
+
+const formatCocktail = (cocktail) => {
+  return {
+    id: cocktail.idDrink,
+    name: cocktail.strDrink,
+    imagePath:
+      cocktail.strDrinkThumb ||
+      "https://www.thecocktaildb.com/images/media/drink/g1vnbe1493067747.jpg"
+  }
+}

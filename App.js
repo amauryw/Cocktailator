@@ -10,6 +10,7 @@ import useLinking from "./navigation/useLinking";
 import Colors from "./constants/Colors";
 import { FavoriteProvider } from "./store/favorite.context";
 import LinksScreen from "./screens/LinksScreen";
+import RecipeScreen from "./screens/RecipeScreen";
 
 const Stack = createStackNavigator();
 
@@ -59,6 +60,7 @@ export default function App(props) {
             <Stack.Navigator headerMode="none">
               <Stack.Screen name="Root" component={HomeScreen} />
               <Stack.Screen name="Test" component={LinksScreen} />
+              <Stack.Screen name="Recipe" component={RecipeScreen} />
             </Stack.Navigator>
           </NavigationContainer>
         </View>

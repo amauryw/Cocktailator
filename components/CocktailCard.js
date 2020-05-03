@@ -1,8 +1,8 @@
 import * as React from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import Layout from "../constants/Layout";
 
-export const CoctailCard = ({ label, uri, inversed, backgroundColor }) => {
+export const CoctailCard = ({ label, uri, inversed, backgroundColor, onPress }) => {
   const renderImage = () => {
     return (
       <View>
@@ -18,7 +18,7 @@ export const CoctailCard = ({ label, uri, inversed, backgroundColor }) => {
   const renderDescription = () => {
     return (
       <View>
-        <Text>{label}</Text>
+        <Text style={styles.text}>{label}</Text>
       </View>
     );
   };
@@ -41,9 +41,13 @@ export const CoctailCard = ({ label, uri, inversed, backgroundColor }) => {
     );
   };
   return (
-    <View style={{ ...styles.container, backgroundColor: backgroundColor }}>
-      {inversed ? renderImageLeft() : renderImageRight()}
-    </View>
+    <TouchableOpacity
+      onPress={onPress}
+    >
+      <View style={{ ...styles.container, backgroundColor: backgroundColor }}>
+        {inversed ? renderImageLeft() : renderImageRight()}
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -51,7 +55,8 @@ const styles = StyleSheet.create({
   container: {
     margin: Layout.margin.medium,
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    padding:10,
   },
   card: {
     flex: 1,
@@ -59,12 +64,17 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 2,
     flexDirection: "row",
-    margin: Layout.margin.small
+    margin: Layout.margin.small,
+    padding: 10,
   },
   image: {
     flex: 1,
     width: 100,
     aspectRatio: 1,
-    borderRadius: 5
+    borderRadius: 5,
+  },
+  text: {
+    fontSize: 15,
+    top: 40,
   }
 });
