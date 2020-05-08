@@ -62,12 +62,12 @@ export default function RecipeScreen({ route, navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
-                <View style={styles.namePlace}>
-                    <Text style={styles.nameText}>
+                <View style={styles.nameContainer}>
+                    <Text style={{ ...styles.standardFont, fontWeight: "bold", fontSize: 30 }}>
                         {currentCocktail.name}
                     </Text>
                 </View>
-                <View style={styles.backButtonPlace}>
+                <View style={styles.backButtonContainer}>
                     <BackButton
                         onPress={() => navigation.navigate("Root")}
                         iconName="md-close-circle-outline"
@@ -80,7 +80,7 @@ export default function RecipeScreen({ route, navigation }) {
                         {renderImage()}
                     </View>
                         <View>
-                            <CocktailDescriptionHeader/>
+                            <CocktailDescriptionHeader />
                             {currentCocktail.ingredients.map((cocktail) => {
                                 return (
                                     <CocktailDescription
@@ -89,11 +89,11 @@ export default function RecipeScreen({ route, navigation }) {
                                 );
                             })}</View>
                         <View style={styles.instructionContainer}>
-                            <Text style={styles.textInstructionsTitle}>
+                            <Text style={{ ...styles.standardFont, textDecorationLine: 'underline' }}>
                                 Instructions:
                                 {"\n"}
                             </Text>
-                            <Text style={styles.textInstructions}>
+                            <Text style={styles.standardFont}>
                                 {currentCocktail.instructions}
                             </Text>
                         </View>
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
         flexDirection: "row",
     },
-    backButtonPlace: {
+    backButtonContainer: {
         right: 10,
         top: 10,
         height: 40,
@@ -167,27 +167,17 @@ const styles = StyleSheet.create({
         aspectRatio: 1,
         borderRadius: 5,
     },
-    namePlace: {
+    nameContainer: {
         paddingLeft: 20,
         flex: 1,
-    },
-    nameText: {
-        textAlignVertical: "center",
-        fontWeight: "bold",
-        fontSize: 30,
-        color: 'white',
     },
     instructionContainer: {
         padding: 20,
         flex: 1,
     },
-    textInstructionsTitle: {
+    standardFont: {
         fontSize: 15,
-        textDecorationLine: 'underline',
-        color: 'white',
-    },
-    textInstructions: {
-        fontSize: 15,
+        textAlignVertical: "center",
         color: 'white',
     },
 })

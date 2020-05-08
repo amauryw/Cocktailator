@@ -2,18 +2,17 @@ import * as React from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import Layout from "../constants/Layout";
 import Colors from "../constants/Colors";
-import { Dimensions } from 'react-native';
 
 export const CocktailDescriptionHeader = () => {
   return (
     <View style={styles.header}>
-      <View style={styles.leftColumn}>
-        <Text style={styles.textHeader}>
+      <View style={{ ...styles.headerColumn, borderTopLeftRadius: 5 }}>
+        <Text style={{ ...styles.standardFont, fontWeight: "bold" }}>
           Ingrédients
         </Text>
       </View>
-      <View style={styles.rightColumn}>
-        <Text style={styles.textHeader}>
+      <View style={{ ...styles.headerColumn, borderTopRightRadius: 5 }}>
+        <Text style={{ ...styles.standardFont, fontWeight: "bold" }}>
           Quantités
         </Text>
       </View>
@@ -24,13 +23,13 @@ export const CocktailDescriptionHeader = () => {
 export const CocktailDescription = ({ ingredient, measure }) => {
   return (
     <View style={styles.tab}    >
-      <View style={styles.leftColumnRow}>
-        <Text style={styles.text}>
+      <View style={styles.dataColumn}>
+        <Text style={styles.standardFont}>
           {ingredient}
         </Text>
       </View>
-      <View style={styles.rightColumnRow}>
-        <Text style={styles.text}>
+      <View style={styles.dataColumn}>
+        <Text style={styles.standardFont}>
           {measure}
         </Text>
       </View>
@@ -54,41 +53,24 @@ const styles = StyleSheet.create({
     height: rowHeight,
     paddingHorizontal: headerPadding,
   },
-  leftColumn: {
+  headerColumn: {
     flex: 1,
     backgroundColor: Colors.tintColorLight,
-    borderTopLeftRadius: 5,
     justifyContent: "center",
     borderBottomWidth: 1,
     borderBottomColor: Colors.borderColor,
     borderRightWidth: 1,
     borderRightColor: Colors.borderColor,
   },
-  rightColumn: {
+  dataColumn: {
     flex: 1,
     backgroundColor: Colors.tintColorLighter,
-    borderTopRightRadius: 5,
-    justifyContent: "center",
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.borderColor,
-  },
-  leftColumnRow: {
-    flex: 1,
-    backgroundColor: Colors.tintColorLight,
     justifyContent: "center",
     borderRightWidth: 1,
     borderRightColor: Colors.borderColor,
   },
-  rightColumnRow: {
-    flex: 1,
-    backgroundColor: Colors.tintColorLighter,
-    justifyContent: "center",
-  },
-  textHeader: {
+  standardFont: {
     textAlign: "center",
-    fontWeight: "bold",
-  },
-  text: {
-    textAlign: "center",
+    color: 'black',
   }
 });
