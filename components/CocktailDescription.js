@@ -2,17 +2,18 @@ import * as React from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import Layout from "../constants/Layout";
 import Colors from "../constants/Colors";
+import { fontStyles, smallFont } from "../constants/Fonts";
 
 export const CocktailDescriptionHeader = () => {
   return (
     <View style={styles.header}>
       <View style={{ ...styles.headerColumn, borderTopLeftRadius: 5 }}>
-        <Text style={{ ...styles.standardFont, fontWeight: "bold" }}>
+        <Text style={[fontStyles.standardFont, fontStyles.bold, fontStyles.centered]}>
           Ingrédients
         </Text>
       </View>
       <View style={{ ...styles.headerColumn, borderTopRightRadius: 5 }}>
-        <Text style={{ ...styles.standardFont, fontWeight: "bold" }}>
+        <Text style={[fontStyles.standardFont, fontStyles.bold, fontStyles.centered]}>
           Quantités
         </Text>
       </View>
@@ -20,38 +21,37 @@ export const CocktailDescriptionHeader = () => {
   );
 };
 
-export const CocktailDescription = ({ ingredient, measure }) => {
+export const CocktailDescription = ({ ingredient, measure, needRadius }) => {
   return (
-    <View style={styles.tab}    >
-      <View style={styles.dataColumn}>
-        <Text style={styles.standardFont}>
+    <View style={styles.tab}>
+      <View style={[styles.dataColumn, (needRadius) ? { borderBottomLeftRadius: 5 } : { borderBottomLeftRadius: 0 }]}>
+        <Text style={[fontStyles.standardFont, fontStyles.centered]}>
           {ingredient}
         </Text>
       </View>
-      <View style={styles.dataColumn}>
-        <Text style={styles.standardFont}>
+      <View style={[styles.dataColumn, (needRadius) ? { borderBottomRightRadius: 5 } : { borderBottomRightRadius: 0 }]}>
+        <Text style={[fontStyles.standardFont, fontStyles.centered]}>
           {measure}
         </Text>
       </View>
     </View >
-  );
+  )
 };
 
 
-const headerHeight = 60;
-const headerPadding = 20;
-const rowHeight = 30;
+const smallMargin = 15;
+const bigMargin = 30;
+const headerHeight = smallFont + bigMargin;
+const rowHeight = smallFont + smallMargin;
 const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     height: headerHeight,
-    padding: headerPadding,
     paddingBottom: 0
   },
   tab: {
     flexDirection: "row",
     height: rowHeight,
-    paddingHorizontal: headerPadding,
   },
   headerColumn: {
     flex: 1,
@@ -69,8 +69,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderRightColor: Colors.borderColor,
   },
-  standardFont: {
-    textAlign: "center",
-    color: 'black',
+  test: {
+    borderBottomRightRadius: 20,
   }
 });
