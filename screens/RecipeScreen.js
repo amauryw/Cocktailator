@@ -5,6 +5,7 @@ import { fetchCocktailByID } from "../api/cocktails.api";
 import { CocktailDescriptionHeader } from "../components/CocktailDescription";
 import { CocktailDescription } from "../components/CocktailDescription";
 import { BackButton } from "../components/BackButton";
+import { DisplayInstructions } from "../components/Instructions";
 import Colors from "../constants/Colors";
 import LottieView from "lottie-react-native";
 import { fontStyles, bigFont, smallFont } from "../constants/Fonts";
@@ -12,7 +13,7 @@ import { fontStyles, bigFont, smallFont } from "../constants/Fonts";
 export default function RecipeScreen({ route, navigation: { goBack } }) {
     const [currentCocktail, setCurrentCocktail] = useState({
         name: null,
-        instructions: null,
+        instructions: [null],
         ingredients: [{ ingredientName: null, measure: null }],
         uri: null,
     });
@@ -93,13 +94,19 @@ export default function RecipeScreen({ route, navigation: { goBack } }) {
                                 );
                             })}</View>
                         <View style={[styles.marginTop, styles.marginRight]}>
-                            <Text style={[fontStyles.standardFont, fontStyles.underligned, fontStyles.secondaryFontColor]}>
+                            <Text style={[fontStyles.standardFont, fontStyles.underligned, fontStyles.secondaryFontColor, fontStyles.bold]}>
                                 Instructions:
                                 {"\n"}
                             </Text>
-                            <Text style={[fontStyles.standardFont, fontStyles.secondaryFontColor]}>
-                                {currentCocktail.instructions}
-                            </Text>
+                            {currentCocktail.instructions.map((instruction, index) => {
+                                return (
+                                    <DisplayInstructions
+                                        key={index}
+                                        instruction={instruction}
+                                        index={index}
+                                    />
+                                );
+                            })}
                         </View>
                     </>}
             </ScrollView>
@@ -120,9 +127,10 @@ const getData = async id => {
             ingredients.push(currentIngredient);
             i++;
         }
+        const instructionsCont = formateInstructions(apiFetchedCocktail[0].strInstructions);
         return {
             name: apiFetchedCocktail[0].strDrink,
-            instructions: apiFetchedCocktail[0].strInstructions,
+            instructions: instructionsCont.instructions,
             ingredients,
             uri: apiFetchedCocktail[0].strDrinkThumb,
         }
@@ -131,6 +139,22 @@ const getData = async id => {
         throw error;
     }
 };
+
+
+const formateInstructions = (rawInstructions) => {
+    const regEx = /\.\s+/;
+    //rawInstructions.replace(/oz\./, 'oz');
+    const instructions = rawInstructions.split(regEx);
+    const instLength = instructions.length;
+    if (instructions[instLength - 1] === "") {
+        instructions.splice(instLength - 1, 1);
+    }
+    console.log(instructions);
+    return {
+        instructions,
+    }
+};
+
 
 const LOGO_HEIGHT = 80;
 const IMAGE_HEIGHT = 150;
@@ -179,7 +203,7 @@ const styles = StyleSheet.create({
         paddingRight: standardPadding,
     },
     standardFont: {
-        fontSize: 15,
+        fontSize: smallFont,
         textAlignVertical: "center",
         color: 'white',
     },

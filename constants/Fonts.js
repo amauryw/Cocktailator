@@ -23,5 +23,8 @@ export const fontStyles = StyleSheet.create({
     },
     centered: {
         textAlign: "center",
-    }
+    },
+    notVerticalCentered: {
+        textAlignVertical: "top",
+    },
 })
