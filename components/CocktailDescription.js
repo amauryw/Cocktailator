@@ -2,18 +2,18 @@ import * as React from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import Layout from "../constants/Layout";
 import Colors from "../constants/Colors";
-import { Dimensions } from 'react-native';
+import { fontStyles, smallFont } from "../constants/Fonts";
 
 export const CocktailDescriptionHeader = () => {
   return (
     <View style={styles.header}>
-      <View style={styles.leftColumn}>
-        <Text style={styles.textHeader}>
+      <View style={{ ...styles.headerColumn, borderTopLeftRadius: 5 }}>
+        <Text style={[fontStyles.standardFont, fontStyles.bold, fontStyles.centered]}>
           Ingrédients
         </Text>
       </View>
-      <View style={styles.rightColumn}>
-        <Text style={styles.textHeader}>
+      <View style={{ ...styles.headerColumn, borderTopRightRadius: 5 }}>
+        <Text style={[fontStyles.standardFont, fontStyles.bold, fontStyles.centered]}>
           Quantités
         </Text>
       </View>
@@ -21,74 +21,55 @@ export const CocktailDescriptionHeader = () => {
   );
 };
 
-export const CocktailDescription = ({ ingredient, measure }) => {
+export const CocktailDescription = ({ ingredient, measure, needRadius }) => {
   return (
-    <View style={styles.tab}    >
-      <View style={styles.leftColumnRow}>
-        <Text style={styles.text}>
+    <View style={styles.tab}>
+      <View style={[styles.dataColumn, (needRadius) ? { borderBottomLeftRadius: 5 } : { borderBottomLeftRadius: 0 }]}>
+        <Text style={[fontStyles.standardFont, fontStyles.centered]}>
           {ingredient}
         </Text>
       </View>
-      <View style={styles.rightColumnRow}>
-        <Text style={styles.text}>
+      <View style={[styles.dataColumn, (needRadius) ? { borderBottomRightRadius: 5 } : { borderBottomRightRadius: 0 }]}>
+        <Text style={[fontStyles.standardFont, fontStyles.centered]}>
           {measure}
         </Text>
       </View>
     </View >
-  );
+  )
 };
 
 
-const headerHeight = 60;
-const headerPadding = 20;
-const rowHeight = 30;
+const smallMargin = 15;
+const bigMargin = 30;
+const headerHeight = smallFont + bigMargin;
+const rowHeight = smallFont + smallMargin;
 const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     height: headerHeight,
-    padding: headerPadding,
     paddingBottom: 0
   },
   tab: {
     flexDirection: "row",
     height: rowHeight,
-    paddingHorizontal: headerPadding,
   },
-  leftColumn: {
+  headerColumn: {
     flex: 1,
     backgroundColor: Colors.tintColorLight,
-    borderTopLeftRadius: 5,
     justifyContent: "center",
     borderBottomWidth: 1,
     borderBottomColor: Colors.borderColor,
     borderRightWidth: 1,
     borderRightColor: Colors.borderColor,
   },
-  rightColumn: {
+  dataColumn: {
     flex: 1,
     backgroundColor: Colors.tintColorLighter,
-    borderTopRightRadius: 5,
-    justifyContent: "center",
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.borderColor,
-  },
-  leftColumnRow: {
-    flex: 1,
-    backgroundColor: Colors.tintColorLight,
     justifyContent: "center",
     borderRightWidth: 1,
     borderRightColor: Colors.borderColor,
   },
-  rightColumnRow: {
-    flex: 1,
-    backgroundColor: Colors.tintColorLighter,
-    justifyContent: "center",
-  },
-  textHeader: {
-    textAlign: "center",
-    fontWeight: "bold",
-  },
-  text: {
-    textAlign: "center",
+  test: {
+    borderBottomRightRadius: 20,
   }
 });
