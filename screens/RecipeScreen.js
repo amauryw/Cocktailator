@@ -143,13 +143,15 @@ const getData = async id => {
 
 const formateInstructions = (rawInstructions) => {
     const regEx = /\.\s+/;
-    //rawInstructions.replace(/oz\./, 'oz');
-    const instructions = rawInstructions.split(regEx);
+    const search = 'oz.';
+    const searchRegExp = new RegExp(search, 'g'); // Throws SyntaxError
+    const replaceWith = 'oz ';
+    const result = rawInstructions.replace(searchRegExp, replaceWith);
+    const instructions = result.split(regEx);
     const instLength = instructions.length;
     if (instructions[instLength - 1] === "") {
         instructions.splice(instLength - 1, 1);
     }
-    console.log(instructions);
     return {
         instructions,
     }
