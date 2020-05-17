@@ -22,7 +22,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.coloc.cocktailator",
-      "buildNumber": "1.0.0",
+      "buildNumber": "1.0.3",
       "supportsTablet": true
     }
   }
