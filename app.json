@@ -2,11 +2,7 @@
   "expo": {
     "name": "Cockailator",
     "slug": "Cockailator",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -23,10 +19,10 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
+      "bundleIdentifier": "com.coloc.cocktailator",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     }
   }
