@@ -18,11 +18,9 @@ export const MyInput = ({
     const clear = () => {
         if (get(refText, 'current.inputRef.current.clear', '')) {
             refText.current.inputRef.current.clear()
-            refText.current.inputRef.current.blur()
             onClear()
         }
     }
-    console.log(refText);
     return (
         <View style={styles.container}>
             <View style={styles.SectionStyle}>
@@ -33,13 +31,14 @@ export const MyInput = ({
                     <Ionicons
                         name={iconName}
                         size={BUTTON_HEIGHT - 20}
-                        color={Colors.primaryColor}
+                        color={Colors.tintColor}
                     />
                 </TouchableOpacity>
                 <TextField
                     value={value}
-                    containerStyle={{ flex: 4 }}
-                    label='Recherche'
+                    containerStyle={{ flex: 1 }}
+                    contentInset={{ top: 2 }}
+                    label='Recherche par: '
                     lineWidth={0}
                     activeLineWidth={0}
                     onChangeText={onChangeText}
