@@ -41,17 +41,18 @@ export default function HomeScreen({ navigation }) {
           iconName={'md-create'}
           value={inputValue}
           onChangeText={value => setInputValue(value)}
-          onClear={()=> setInputValue("")}
+          onClear={() => setInputValue("")}
         />
         <Picker
           selectedValue={pickerValue}
-          style={{ flex: 1 }}
+          style={{ flex: 0.7 }}
           mode='dropdown'
           onValueChange={(itemValue, itemIndex) =>
             setPickerValue(itemValue)
           }>
-          <Picker.Item label="Ingrédient" value="ingredient" />
-          <Picker.Item label="test" value="test" />
+          <Picker.Item label="Alcool" value="ingredient" />
+          <Picker.Item label="Nom" value="name" />
+          <Picker.Item label="Random" value="random" />
         </Picker>
       </View>
       <ScrollView style={styles.scrollView}>
@@ -77,7 +78,7 @@ export default function HomeScreen({ navigation }) {
         iconName="md-add-circle-outline"
       />
       <FloatingButton
-        onPress={() => loadCocktails(inputValue)}
+        onPress={() => loadCocktails(inputValue, pickerValue)}
         isLoading={isLoading}
         verticalOffset={0}
         iconName="md-search"
@@ -119,5 +120,6 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     flexDirection: "row",
+    alignItems: 'center'
   },
 });
