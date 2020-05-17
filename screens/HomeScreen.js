@@ -1,17 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, View, ScrollView } from "react-native";
+import { StyleSheet, View, TextInput, ScrollView } from "react-native";
 import { CoctailCard } from "../components/CocktailCard";
 import { FloatingButton } from "../components/FloatingButton";
+import { MyInput } from "../components/MyInput";
 import { useFavoriteStore } from "../store/favorite.hooks";
 import Colors from "../constants/Colors";
-import { Kaede } from "react-native-textinput-effects";
+//import { Fumi } from "react-native-textinput-effects";
 import LottieView from "lottie-react-native";
+import { Picker } from '@react-native-community/picker';
+import { TextField } from 'react-native-material-textfield';
 
 const LOGO_HEIGHT = 150;
 
 export default function HomeScreen({ navigation }) {
   const { isLoading, myFavoriteCocktails, loadCocktails } = useFavoriteStore();
   const [inputValue, setInputValue] = useState("");
+  const [pickerValue, setPickerValue] = useState("Ingredient");
   const animation = useRef(null);
   useEffect(() => {
     animation.current.play();
@@ -29,18 +33,27 @@ export default function HomeScreen({ navigation }) {
       </>
     );
   };
-
   return (
     <View style={styles.mainContainer}>
       {renderHeader()}
-      <Kaede
-        label={"Ingrédient"}
-        inputPadding={16}
-        inputStyle={styles.textContainer}
-        labelStyle={styles.labelStyleContainer}
-        value={inputValue}
-        onChangeText={text => setInputValue(text)}
-      />
+      <View style={styles.searchBar}>
+        <MyInput
+          iconName={'md-create'}
+          value={inputValue}
+          onChangeText={value => setInputValue(value)}
+          onClear={()=> setInputValue("")}
+        />
+        <Picker
+          selectedValue={pickerValue}
+          style={{ flex: 1 }}
+          mode='dropdown'
+          onValueChange={(itemValue, itemIndex) =>
+            setPickerValue(itemValue)
+          }>
+          <Picker.Item label="Ingrédient" value="ingredient" />
+          <Picker.Item label="test" value="test" />
+        </Picker>
+      </View>
       <ScrollView style={styles.scrollView}>
         <View style={styles.scrollViewContainer}>
           {myFavoriteCocktails.map((cocktail, index) => {
@@ -94,7 +107,7 @@ const styles = StyleSheet.create({
   scrollViewContainer: {
     flex: 1,
     flexDirection: "column",
-    
+
   },
   textContainer: {
     backgroundColor: Colors.tintColorLighter,
@@ -103,5 +116,8 @@ const styles = StyleSheet.create({
   labelStyleContainer: {
     backgroundColor: Colors.tintColorLight,
     color: Colors.tintColor
-  }
+  },
+  searchBar: {
+    flexDirection: "row",
+  },
 });
