@@ -1,21 +1,25 @@
 import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, View, TextInput, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Picker,
+  SafeAreaView,
+} from "react-native";
 import { CoctailCard } from "../components/CocktailCard";
 import { FloatingButton } from "../components/FloatingButton";
 import { MyInput } from "../components/MyInput";
 import { useFavoriteStore } from "../store/favorite.hooks";
 import Colors from "../constants/Colors";
-//import { Fumi } from "react-native-textinput-effects";
 import LottieView from "lottie-react-native";
-import { Picker } from '@react-native-community/picker';
-import { TextField } from 'react-native-material-textfield';
 
 const LOGO_HEIGHT = 150;
+const PICKER_HEIGHT_IOS = 60;
 
 export default function HomeScreen({ navigation }) {
   const { isLoading, myFavoriteCocktails, loadCocktails } = useFavoriteStore();
   const [inputValue, setInputValue] = useState("");
-  const [pickerValue, setPickerValue] = useState("Ingredient");
+  const [pickerValue, setPickerValue] = useState("ingredient");
   const animation = useRef(null);
   useEffect(() => {
     animation.current.play();
@@ -35,25 +39,26 @@ export default function HomeScreen({ navigation }) {
   };
   return (
     <View style={styles.mainContainer}>
+      <SafeAreaView backgroundColor={Colors.tintColor}/>
       {renderHeader()}
       <View style={styles.searchBar}>
         <MyInput
-          iconName={'md-create'}
+          iconName={"md-create"}
           value={inputValue}
           onChangeText={value => setInputValue(value)}
           onClear={() => setInputValue("")}
         />
-        <Picker
-          selectedValue={pickerValue}
-          style={{ flex: 0.7 }}
-          mode='dropdown'
-          onValueChange={(itemValue, itemIndex) =>
-            setPickerValue(itemValue)
-          }>
-          <Picker.Item label="Alcool" value="ingredient" />
-          <Picker.Item label="Nom" value="name" />
-          <Picker.Item label="Random" value="random" />
-        </Picker>
+        <View style={{ flex: 0.7 }}>
+          <Picker
+            selectedValue={pickerValue}
+            mode="dropdown"
+            onValueChange={itemValue => setPickerValue(itemValue)}
+          >
+            <Picker.Item label="Alcool" value="ingredient" />
+            <Picker.Item label="Nom" value="name" />
+            <Picker.Item label="Random" value="random" />
+          </Picker>
+        </View>
       </View>
       <ScrollView style={styles.scrollView}>
         <View style={styles.scrollViewContainer}>
@@ -66,7 +71,9 @@ export default function HomeScreen({ navigation }) {
                 uri={cocktail.imagePath}
                 inversed={evenLine}
                 backgroundColor={evenLine ? Colors.oddLine : Colors.evenLine}
-                onPress={() => navigation.navigate("Recipe", { id: cocktail.id })}
+                onPress={() =>
+                  navigation.navigate("Recipe", { id: cocktail.id })
+                }
               />
             );
           })}
@@ -107,8 +114,7 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     flex: 1,
-    flexDirection: "column",
-
+    flexDirection: "column"
   },
   textContainer: {
     backgroundColor: Colors.tintColorLighter,
@@ -120,6 +126,7 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     flexDirection: "row",
-    alignItems: 'center'
-  },
+    alignItems: "center",
+    maxHeight: PICKER_HEIGHT_IOS
+  }
 });
