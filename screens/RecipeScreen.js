@@ -17,7 +17,7 @@ export default function RecipeScreen({ route, navigation: { goBack } }) {
     ingredients: [{ ingredientName: null, measure: null }],
     uri: null
   });
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const currentCocktailId = route.params.id;
   useEffect(() => {
     async function fetchData() {
@@ -50,6 +50,8 @@ export default function RecipeScreen({ route, navigation: { goBack } }) {
     );
   };
   const renderImage = () => {
+    console.log("Amo: renderImage -> currentCocktail", currentCocktail);
+
     return (
       <View>
         <Image
