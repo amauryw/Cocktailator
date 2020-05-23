@@ -7,7 +7,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.3",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -28,7 +28,7 @@
     ],
     "ios": {
       "bundleIdentifier": "com.coloc.cocktailator",
-      "buildNumber": "1.0.3",
+      "buildNumber": "1.0.4",
       "supportsTablet": true
     },
     "sdkVersion": "37.0.0",
