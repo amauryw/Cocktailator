@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, Text, View, Image, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  SafeAreaView,
+  Button
+} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { fetchCocktailByID } from "../api/cocktails.api";
 import { CocktailDescriptionHeader } from "../components/CocktailDescription";
@@ -9,6 +16,7 @@ import { DisplayInstructions } from "../components/Instructions";
 import Colors from "../constants/Colors";
 import LottieView from "lottie-react-native";
 import { fontStyles, bigFont, smallFont } from "../constants/Fonts";
+import { useFavoriteCocktailStore } from "../store/favorite/favorite.hooks";
 
 export default function RecipeScreen({ route, navigation: { goBack } }) {
   const [currentCocktail, setCurrentCocktail] = useState({
@@ -18,6 +26,10 @@ export default function RecipeScreen({ route, navigation: { goBack } }) {
     uri: null
   });
   const [isLoading, setIsLoading] = useState(true);
+  const {
+    setCocktailAsFavorite,
+    isFavoriteLoading = isLoading
+  } = useFavoriteCocktailStore();
   const currentCocktailId = route.params.id;
   useEffect(() => {
     async function fetchData() {
@@ -50,8 +62,6 @@ export default function RecipeScreen({ route, navigation: { goBack } }) {
     );
   };
   const renderImage = () => {
-    console.log("Amo: renderImage -> currentCocktail", currentCocktail);
-
     return (
       <View>
         <Image
@@ -137,6 +147,12 @@ export default function RecipeScreen({ route, navigation: { goBack } }) {
           )}
         </ScrollView>
       </View>
+      <Button
+        title="Ajouter aux favoris"
+        disabled={isFavoriteLoading}
+        onPress={async () => await setCocktailAsFavorite(currentCocktail)}
+        color="white"
+      ></Button>
       {renderLogo()}
     </View>
   );

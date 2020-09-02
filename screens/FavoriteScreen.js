@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Text, View, SafeAreaView } from "react-native";
+import { Text, View, SafeAreaView, Button } from "react-native";
 import Colors from "../constants/Colors";
 import { BackButton } from "../components/BackButton";
 import { styles } from "./RecipeScreen";
@@ -9,11 +9,14 @@ import { useFavoriteCocktailStore } from "../store/favorite/favorite.hooks";
 export default function FavoriteScreen({ route, navigation: { goBack } }) {
   const {
     myFavoriteCocktails,
-    loadFavoriteCocktails
+    loadFavoriteCocktails,
+    removeFavoriteCocktailByName,
+    isLoading
   } = useFavoriteCocktailStore();
   useEffect(() => {
     loadFavoriteCocktails();
   }, []);
+
   return (
     <View style={styles.container}>
       <SafeAreaView backgroundColor={Colors.tintColor} />
@@ -38,6 +41,15 @@ export default function FavoriteScreen({ route, navigation: { goBack } }) {
         </View>
       </View>
       <Text>{myFavoriteCocktails.length}</Text>
+      {myFavoriteCocktails.map(cocktail => (
+        <Button
+          title={cocktail.name}
+          disabled={isLoading}
+          color="white"
+          onPress={() => removeFavoriteCocktailByName(cocktail.name)}
+        />
+      ))}
+      {isLoading && <Text>Loading</Text>}
     </View>
   );
 }
