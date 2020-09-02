@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, View, SafeAreaView } from "react-native";
 import Colors from "../constants/Colors";
 import { BackButton } from "../components/BackButton";
 import { styles } from "./RecipeScreen";
 import { fontStyles } from "../constants/Fonts";
+import { useFavoriteCocktailStore } from "../store/favorite/favorite.hooks";
 
 export default function FavoriteScreen({ route, navigation: { goBack } }) {
+  const {
+    myFavoriteCocktails,
+    loadFavoriteCocktails
+  } = useFavoriteCocktailStore();
+  useEffect(() => {
+    loadFavoriteCocktails();
+  }, []);
   return (
     <View style={styles.container}>
       <SafeAreaView backgroundColor={Colors.tintColor} />
@@ -29,6 +37,7 @@ export default function FavoriteScreen({ route, navigation: { goBack } }) {
           />
         </View>
       </View>
+      <Text>{myFavoriteCocktails.length}</Text>
     </View>
   );
 }
