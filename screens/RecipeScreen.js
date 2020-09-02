@@ -191,7 +191,11 @@ const LOGO_HEIGHT = 100;
 const IMAGE_HEIGHT = 150;
 const standardPadding = 20;
 const headerHeight = 2 * (bigFont + standardPadding);
-const styles = StyleSheet.create({
+
+/**
+ * @todo a transformer en "theme" pour reutilser ces constantes en pages
+ */
+export const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.tintColor,
     flex: 1

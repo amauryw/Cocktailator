@@ -11,6 +11,7 @@ import Colors from "./constants/Colors";
 import { ResultCocktailProvider } from "./store/resultCocktail.context";
 import LinksScreen from "./screens/LinksScreen";
 import RecipeScreen from "./screens/RecipeScreen";
+import FavoriteScreen from "./screens/FavoriteScreen";
 
 const Stack = createStackNavigator();
 
@@ -61,6 +62,7 @@ export default function App(props) {
               <Stack.Screen name="Root" component={HomeScreen} />
               <Stack.Screen name="Test" component={LinksScreen} />
               <Stack.Screen name="Recipe" component={RecipeScreen} />
+              <Stack.Screen name="Favorite" component={FavoriteScreen} />
             </Stack.Navigator>
           </NavigationContainer>
         </View>

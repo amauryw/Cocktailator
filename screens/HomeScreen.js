@@ -80,7 +80,7 @@ export default function HomeScreen({ navigation }) {
         </View>
       </ScrollView>
       <FloatingButton
-        //onPress={() => navigation.navigate("Test")}
+        onPress={() => navigation.navigate("Favorite")}
         verticalOffset={1}
         iconName="md-add-circle-outline"
       />
