@@ -9,7 +9,7 @@ import {
 import { CoctailCard } from "../components/CocktailCard";
 import { FloatingButton } from "../components/FloatingButton";
 import { MyInput } from "../components/MyInput";
-import { useFavoriteStore } from "../store/favorite.hooks";
+import { useFavoriteStore } from "../store/resultCocktail.hooks";
 import Colors from "../constants/Colors";
 import LottieView from "lottie-react-native";
 

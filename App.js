@@ -8,7 +8,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./screens/HomeScreen";
 import useLinking from "./navigation/useLinking";
 import Colors from "./constants/Colors";
-import { FavoriteProvider } from "./store/favorite.context";
+import { FavoriteProvider } from "./store/resultCocktail.context";
 import LinksScreen from "./screens/LinksScreen";
 import RecipeScreen from "./screens/RecipeScreen";
 

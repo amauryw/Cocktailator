@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { FavoriteContext } from "./favorite.context";
+import { FavoriteContext } from "./resultCocktail.context";
 import { fetchCocktails } from "../api/cocktails.api";
-import { adaptApiCocktailToCocktails } from "./favorite.adapter";
+import { adaptApiCocktailToCocktails } from "./resultCocktail.adapter";
 
 export const useFavoriteStore = () => {
   const [state, setState] = useContext(FavoriteContext);
