@@ -8,7 +8,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./screens/HomeScreen";
 import useLinking from "./navigation/useLinking";
 import Colors from "./constants/Colors";
-import { FavoriteProvider } from "./store/resultCocktail.context";
+import { ResultCocktailProvider } from "./store/resultCocktail.context";
 import LinksScreen from "./screens/LinksScreen";
 import RecipeScreen from "./screens/RecipeScreen";
 
@@ -50,7 +50,7 @@ export default function App(props) {
     return null;
   } else {
     return (
-      <FavoriteProvider>
+      <ResultCocktailProvider>
         <View style={styles.container}>
           <StatusBar animated backgroundColor={Colors.tintColor} />
           <NavigationContainer
@@ -64,7 +64,7 @@ export default function App(props) {
             </Stack.Navigator>
           </NavigationContainer>
         </View>
-      </FavoriteProvider>
+      </ResultCocktailProvider>
     );
   }
 }

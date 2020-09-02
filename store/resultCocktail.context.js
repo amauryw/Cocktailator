@@ -1,18 +1,18 @@
 import React, { createContext, useState } from "react";
 
-export const FavoriteContext = createContext([{}, () => {}]);
+export const ResultCocktailContext = createContext([{}, () => {}]);
 
 const initialState = {
-  myFavoriteCocktails: [],
+  myResultCocktails: [],
   isLoading: false
 };
 
-export const FavoriteProvider = props => {
+export const ResultCocktailProvider = props => {
   const [state, setState] = useState(initialState);
 
   return (
-    <FavoriteContext.Provider value={[state, setState]}>
+    <ResultCocktailContext.Provider value={[state, setState]}>
       {props.children}
-    </FavoriteContext.Provider>
+    </ResultCocktailContext.Provider>
   );
 };

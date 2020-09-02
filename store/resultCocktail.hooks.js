@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { FavoriteContext } from "./resultCocktail.context";
+import { ResultCocktailContext } from "./resultCocktail.context";
 import { fetchCocktails } from "../api/cocktails.api";
 import { adaptApiCocktailToCocktails } from "./resultCocktail.adapter";
 
-export const useFavoriteStore = () => {
-  const [state, setState] = useContext(FavoriteContext);
-  const myFavoriteCocktails = state.myFavoriteCocktails;
+export const useResultCocktailStore = () => {
+  const [state, setState] = useContext(ResultCocktailContext);
+  const myResultCocktails = state.myResultCocktails;
 
   const isLoading = state.isLoading;
 
@@ -14,11 +14,11 @@ export const useFavoriteStore = () => {
       setState({ ...state, isLoading: true });
       const apiFetchedCockails = await fetchCocktails(search, type);
       const cocktails = adaptApiCocktailToCocktails(apiFetchedCockails);
-      setState({ ...state, myFavoriteCocktails: cocktails, isLoading: false });
+      setState({ ...state, myResultCocktails: cocktails, isLoading: false });
     } catch (error) {
-      setState({ ...state, isLoading: false, myFavoriteCocktails: [] });
+      setState({ ...state, isLoading: false, myResultCocktails: [] });
     }
   };
 
-  return { myFavoriteCocktails, loadCocktails, isLoading };
+  return { myResultCocktails, loadCocktails, isLoading };
 };

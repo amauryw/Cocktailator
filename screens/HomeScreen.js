@@ -9,7 +9,7 @@ import {
 import { CoctailCard } from "../components/CocktailCard";
 import { FloatingButton } from "../components/FloatingButton";
 import { MyInput } from "../components/MyInput";
-import { useFavoriteStore } from "../store/resultCocktail.hooks";
+import { useResultCocktailStore } from "../store/resultCocktail.hooks";
 import Colors from "../constants/Colors";
 import LottieView from "lottie-react-native";
 
@@ -17,7 +17,7 @@ const LOGO_HEIGHT = 150;
 const PICKER_HEIGHT_IOS = 60;
 
 export default function HomeScreen({ navigation }) {
-  const { isLoading, myFavoriteCocktails, loadCocktails } = useFavoriteStore();
+  const { isLoading, myResultCocktails, loadCocktails } = useResultCocktailStore();
   const [inputValue, setInputValue] = useState("");
   const [pickerValue, setPickerValue] = useState("ingredient");
   const animation = useRef(null);
@@ -62,7 +62,7 @@ export default function HomeScreen({ navigation }) {
       </View>
       <ScrollView style={styles.scrollView}>
         <View style={styles.scrollViewContainer}>
-          {myFavoriteCocktails.map((cocktail, index) => {
+          {myResultCocktails.map((cocktail, index) => {
             const evenLine = index % 2 === 0;
             return (
               <CoctailCard
